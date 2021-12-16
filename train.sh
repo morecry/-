@@ -1,1 +1,0 @@
-python run.py --action train --max_context_length 64 --print_freq 200 --eval_freq 1000 --train_batch_size 10 --eval_batch_size 10 --gpu 0
