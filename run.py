@@ -13,7 +13,6 @@ def set_seed(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     ## Required parameters
-    parser.add_argument("--action", default='train', type=str, help='Train or test model.')
     parser.add_argument("--bert_model", default='bert', type=str, help='The path to load pre-trained bert model.')
     parser.add_argument("--output_dir", default='output', type=str, help='The path to save output log.')
     parser.add_argument("--data_dir", default='data', type=str, help='The path to sava dataset.')
@@ -23,8 +22,6 @@ if __name__ == '__main__':
     parser.add_argument("--warmup_steps", default=100, type=float)
     parser.add_argument("--adam_epsilon", default=1e-8, type=float, help="Epsilon for Adam optimizer.")
     parser.add_argument("--max_grad_norm", default=1.0, type=float, help="Max gradient norm.")
-
-    ## Significant parameter
     parser.add_argument("--train_batch_size", default=2048, type=int, help="Total batch size for training.")
     parser.add_argument("--eval_batch_size", default=2048, type=int, help="Total batch size for eval.")
     parser.add_argument("--print_freq", default=25, type=int, help="Log frequency")
