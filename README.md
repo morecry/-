@@ -1,4 +1,6 @@
 # <i>语诗</i>
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+
 临近期末，本学期信息检索课程需要完成一个大作业，受清华大学孙茂松、刘志远老师团队开发的<a href='https://wantwords.thunlp.org'>万词王</a><i>(一个根据给定描述来检索相关词语表达的工具，也叫做<b>反向词典</b>)</i>启发，想到可以用同样的方式来检索诗歌。首先，我使用BERT-chinese预训练模型，在一个<a href='https://github.com/snowtraces/poetry-source'>诗歌数据集</a>下基于两个自监督任务来进行post-train，之后在一个<a href='https://github.com/THUNLP-AIPoet/CCPM'>诗歌翻译数据集</a>下进行fine-tune，使得相关语义的口语描述与诗歌的相似度能够更高。
 
 最后，在`inference.py`脚本中，我提供了两种调用方式，第一种是由诗到诗的检索，即根据一句诗返回语义近似的诗句，第二种是由口语描述到诗的检索，即根据自然的口语表达返回语义近似的诗句，受数据集规模限制，第二种调用方式的效果一般，但是也算是基本实现了我最初的想法，为保证结果质量，目前只能检索到七言律诗，下图是两种调用方式返回的example：
@@ -30,6 +32,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 nohup python run.py >train.log 2>&1 &
 > 4. 训练结束后可以运行`inference.py`进行测试
 
 
+如果您在运行本项目过程中遇到问题、有什么新的想法，或是您发现有更好的诗歌翻译数据集(且规模够大)，均可直接和我沟通, 下面是我的联系方式
 
-
-<small><i></i></small>
+ * <b>邮箱:</b> quantu@ruc.edu.cn
+ * <b>微信:</b> isle_-_
