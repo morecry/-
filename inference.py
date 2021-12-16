@@ -140,7 +140,7 @@ if  __name__ == "__main__":
         create_index(data_dir)
     # input = "长风破浪会有时，直挂云帆济沧海。"
     input = "烟笼寒水月笼沙，夜泊秦淮近酒家。"
-    results, values = query(input, topk=20, type='poem')
+    results, values = query(input, topk=20, type='poem') #type为poem表示输入为诗歌，oral表示输入为日常用语
 
     # input = "夜晚睡不着"
     # input = "冬天早上天气好冷啊"
