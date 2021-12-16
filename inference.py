@@ -148,9 +148,9 @@ if  __name__ == "__main__":
     # results, values = query(input, topk=20, type='oral')
     print("\n#输入: " + input)
     print("=" * 50)
-    print(" " * 8 + "#检索结果(Top%d)"%len(results) + " " * 17 + "#相似度")
-    for poem, value in zip(results, values):
-        print(poem + "\t%.8f" % value)
+    print(" " * 8 + "#检索结果(Top%d)"%len(results))
+    for poem in results:
+        print(poem)
     # print(predict("昏#病眼已经年，世味#酸总澹然。"))
 
 
