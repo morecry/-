@@ -38,8 +38,8 @@ if __name__ == '__main__':
         print("=" * 100 + "\n")
         print("Start training the model..." + "\n")
         print("=" * 100 + "\n")
-        # train(args, type='mask')
-        # train(args, type='nxt')
+        train(args, type='mask')
+        train(args, type='nxt')
         args.num_train_epochs = 20
         train(args,type='match')
     else:
