@@ -1,6 +1,0 @@
-scp -r administrator@10.221.35.181:C:/Users/Administrator/Desktop/file/Basline_response_selection .
-
-scp administrator@10.221.35.181:C:/Users/Administrator/Desktop/file/Basline_response_selection/dataset.py .
- scp administrator@10.221.35.181:C:/Users/Administrator/Desktop/encoder.py encoder.py 
- scp administrator@10.221.35.181:C:/Users/Administrator/Desktop/run.py run.py
-python3 run.py --bert_model bert_model/ --output_dir output_dstc7/ --train_dir dstc7/ --use_pretrain --architecture cross --eval
