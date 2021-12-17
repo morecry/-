@@ -20,13 +20,13 @@
 ## 直接测试结果
 > 1. 下载预处理后的诗歌数据集文件<a href='https://cnbj1.fds.api.xiaomi.com/imagebucket/user/tuquan/all_pair_7.txt'>all_pair_7.txt</a>放入`data`文件夹中
 > 2. 下载预训练模型文件<a href='https://cnbj1.fds.api.xiaomi.com/imagebucket/user/tuquan/bert_ch.bin'>bert_ch.bin</a>和<a href='https://cnbj1.fds.api.xiaomi.com/imagebucket/user/tuquan/bert_poem.bin'>bert_poem.bin</a>放入`output`文件夹中
-> 3. 运行`inference.py` (如果你想使用其他query测试，修改该文件即可)
+> 3. 运行`inference.py` (如果你想使用其他query测试，修改该文件即可)，第一次运行可能时间较长，因为需要建立索引向量文件
 
 ## 重新训练
 > 1. 下载预处理后的诗歌数据集文件<a href='https://cnbj1.fds.api.xiaomi.com/imagebucket/user/tuquan/all_pair_7.txt'>all_pair_7.txt</a>放入`data`文件夹中
 > 2. 运行`split_data.py`
 > 3. 下载bert-base-chinese预训练模型<a href='https://huggingface.co/bert-base-chinese/resolve/main/pytorch_model.bin'>pytorch_model.bin</a>放入`output`文件夹中
-> 4. 使用如下命令添加后台训练任务 (多卡训练，如果是单卡将CUDA_VISIBLE_DEVICES后面的数字改成0即可)，如果
+> 4. 使用如下命令添加后台训练任务 (多卡训练，如果是单卡将CUDA_VISIBLE_DEVICES后面的数字改成0即可)
 ```shell
 CUDA_VISIBLE_DEVICES=0,1,2,3 nohup python run.py --train_batch_size 2048 --eval_batch_size 2048 >train.log 2>&1 &
 ```
