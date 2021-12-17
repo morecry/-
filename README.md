@@ -25,11 +25,12 @@
 ## 重新训练
 > 1. 下载预处理后的诗歌数据集文件<a href='https://cnbj1.fds.api.xiaomi.com/imagebucket/user/tuquan/all_pair_7.txt'>all_pair_7.txt</a>放入`data`文件夹中
 > 2. 运行`split_data.py`
-> 3. 使用如下命令添加后台训练任务 (多卡训练，如果是单卡将CUDA_VISIBLE_DEVICES后面的数字改成0即可)
+> 3. 下载bert-base-chinese预训练模型<a href='https://huggingface.co/bert-base-chinese/resolve/main/pytorch_model.bin'>pytorch_model.bin</a>放入`output`文件夹中
+> 4. 使用如下命令添加后台训练任务 (多卡训练，如果是单卡将CUDA_VISIBLE_DEVICES后面的数字改成0即可)，如果
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 nohup python run.py >train.log 2>&1 &
+CUDA_VISIBLE_DEVICES=0,1,2,3 nohup python run.py --train_batch_size 2048 --eval_batch_size 2048 >train.log 2>&1 &
 ```
-> 4. 训练结束后可以运行`inference.py`进行测试
+> 5. 训练结束后可以运行`inference.py`进行测试
 
 
 如果您在运行本项目过程中遇到问题、有什么新的想法，或是您发现有更好的诗歌翻译数据集(且规模够大)，均可直接和我沟通, 下面是我的联系方式
