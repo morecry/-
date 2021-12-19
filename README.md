@@ -36,4 +36,3 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 nohup python run.py --train_batch_size 2048 --eval_
 如果您在运行本项目过程中遇到问题、有什么新的想法，或是您发现有更好的诗歌翻译数据集(且规模够大)，均可直接和我沟通, 下面是我的联系方式
 
  * <b>邮箱:</b> quantu@ruc.edu.cn
- * <b>微信:</b> isle_-_
