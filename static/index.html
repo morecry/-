@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title>诗歌检索系统</title>
+  </head>
+  <body>
+    <div class="container">
+      <!--
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="text" class="form-label">请输入查询</label>
+            <input type="email" class="form-control" id="text" placeholder="要查询的诗句">
+          </div>
+          <button type="submit" class="btn btn-primary" id="submit">搜索</button>
+          <hr/>
+        </div>
+        <div class="col">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+          <ul class="list-group" id="results">
+          </ul>
+        </div>
+        <div class="col">
+        </div>
+      </div>
+      -->
+      <div class="row">
+        <div class="col">
+          <div class="position-absolute top-50">
+            <div class="mb-5" style="width: 400px;">
+              <p>古诗查询系统</p>
+              <label for="text" class="form-label">请输入查询诗句</label>
+              <input type="text" class="form-control" id="text" placeholder="要查询的诗句">
+            </div>
+          <button type="submit" class="btn btn-primary" id="submit">搜索</button>
+          </div>
+        </div>
+        <div class="col">
+          <ul class="list-group" id="results">
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+      $("#submit").on("click", function(event){
+        query = $("#text").val();
+        console.log(query);
+        $("#results").empty();
+        $("#submit").text("查询中")
+        $("#submit").prop('disabled', true);
+        $.getJSON('/query_api/'+query, function(data){
+          console.log(data);
+          for(let i=0; i < data.length; i++){
+            // $("#results").append(`<div class="row"> <div class="col"></div> <div class="col-6"> ${data[i]} </div>   <div class="col"></div> </div>`)
+            $("#results").append(`<li class="list-group-item">${data[i]} </li>`)
+          }
+          $("#submit").text("搜索")
+          $("#submit").prop('disabled', false);
+        })
+      })  
+    </script>
+  </body>
+</html>

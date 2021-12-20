@@ -21,8 +21,9 @@ class PoemDataset(Dataset):
 
     def __getitem__(self, index):
         return self.data_source[index]
-bert_dir = 'bert'
-tokenizer = BertTokenizerFast.from_pretrained(bert_dir)
+# bert_dir = 'bert'
+# tokenizer = BertTokenizerFast.from_pretrained(bert_dir)
+
 
 def transform_data(line):
     res = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(line))
@@ -61,6 +62,7 @@ def create_index(data_dir):
         torch.save(index, os.path.join(data_dir, "index.pt"))
     print("finished!")
 
+"""
 def query(inputs, topk=10, type=None):
     assert type in ['poem', 'oral']
     bert_dir = 'bert'
@@ -91,6 +93,7 @@ def query(inputs, topk=10, type=None):
     values, indices = sim.topk(topk, sorted=True)
     results = [dataset[idx] for idx in indices]
     return results, values
+"""
 
 def predict(input):
 
@@ -134,13 +137,58 @@ def predict(input):
     # results = [dataset[idx] for idx in indices]
     return results, values
 
+
+class API(object):
+    def __init__(self, data_dir='data', bert_dir='bert'):
+        self.data_dir = data_dir
+        self.bert_dir = bert_dir
+        self.tokenizer = BertTokenizerFast.from_pretrained(self.bert_dir)
+
+        if not os.path.exists(os.path.join(self.data_dir, "index.pt")):
+            create_index(self.data_dir)
+        pass
+
+    def query(self, text, topk=20, type='poem'):
+        assert type in ['poem', 'oral']
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        bert_config = BertConfig.from_json_file(os.path.join(self.bert_dir, 'config.json'))
+        tokenizer = BertTokenizerFast.from_pretrained(self.bert_dir)
+        dataset = PoemDataset(os.path.join(self.data_dir, 'all_pair_7.txt'), tokenizer)
+
+        index = torch.load(os.path.join(self.data_dir, "index.pt"))
+        index = index.to(device)
+        if type == 'oral':
+            pretrained_model_file_ch = os.path.join("output", "bert_ch.bin")
+        elif type == 'poem':
+            pretrained_model_file_ch = os.path.join("output", "bert_poem.bin")
+        bert = BertModel(bert_config)
+        checkpoint = torch.load(pretrained_model_file_ch, map_location="cpu")
+        bert.load_state_dict(checkpoint)
+        bert = bert.to(device)
+        bert.eval()
+        inputs = tokenizer.convert_tokens_to_ids(tokenizer.tokenize(text))
+
+        inputs = torch.tensor([inputs])
+        inputs = inputs.to(device)
+        with torch.no_grad():
+            hidden_state = bert(input_ids=inputs)[0][:, 0, :]
+            sim = F.cosine_similarity(hidden_state, index)
+        values, indices = sim.topk(topk, sorted=True)
+        results = [dataset[idx] for idx in indices]
+        return results, values
+
+
 if  __name__ == "__main__":
     data_dir = 'data'
     if not os.path.exists(os.path.join(data_dir, "index.pt")):
         create_index(data_dir)
+    
+    api = API()
     # input = "长风破浪会有时，直挂云帆济沧海。"
     input = "烟笼寒水月笼沙，夜泊秦淮近酒家。"
-    results, values = query(input, topk=20, type='poem') #type为poem表示输入为诗歌，oral表示输入为日常用语
+
+    # results, values = query(input, topk=20, type='poem') #type为poem表示输入为诗歌，oral表示输入为日常用语
+    results, values = api.query(input)
 
     # input = "夜晚睡不着"
     # input = "冬天早上天气好冷啊"
