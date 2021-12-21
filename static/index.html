@@ -22,6 +22,20 @@
         </a>
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" id="queryform">
           <input type="text" class="form-control" id="text" placeholder="要查询的诗句" size=50>
+
+        </form>
+        <a class="d-flex align-items-center mb-2 mb-lg-0 px-2 text-dark text-decoration-none">
+            查询类型
+        </a>
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="query_type" name="query_type" value="poem" checked>
+            <label class="form-check-label" for="inlineCheckbox1">诗歌</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="query_type" name="query_type" value="oral">
+            <label class="form-check-label" for="inlineCheckbox2">白话</label>
+          </div>
         </form>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -53,12 +67,18 @@
     <script>
       let run_query = function(event){
         query = $("#text").val();
+        if (!query){
+          return false;
+        }
+
         console.log(query);
         $("#results1").empty();
         $("#results2").empty();
         $("#submit").text("查询中")
         $("#submit").prop('disabled', true);
-        $.getJSON('/query_api/'+query, function(data){
+        let query_type=$("#query_type:checked").val();
+        console.log(query_type);
+        $.getJSON('/query_api/'+query + '/' + query_type, function(data){
           console.log(data);
           for(let i=0; i < data.length; i++){
             item = data[i];

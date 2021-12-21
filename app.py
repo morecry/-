@@ -10,10 +10,10 @@ api = API()
 def hello_world():
     return app.send_static_file('index.html')
 
-@app.route('/query_api/<text>')
-def query_api(text):
+@app.route('/query_api/<text>/<query_type>')
+def query_api(text, query_type):
     print(text)
-    results, values = api.query(text)
+    results, values = api.query(text, type=query_type)
     ret = []
     for r, v in zip(results, values):
         ret.append({
