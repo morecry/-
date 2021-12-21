@@ -20,9 +20,8 @@
             </svg>
             请输入查询
         </a>
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" id="queryform">
           <input type="text" class="form-control" id="text" placeholder="要查询的诗句" size=50>
-
         </form>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -52,7 +51,7 @@
       </div>
       <script src="/static/bootstrap.bundle.min.js"></script>
     <script>
-      $("#submit").on("click", function(event){
+      let run_query = function(event){
         query = $("#text").val();
         console.log(query);
         $("#results1").empty();
@@ -75,7 +74,10 @@
           $("#submit").text("搜索")
           $("#submit").prop('disabled', false);
         })
-      })  
+        return false;
+      };
+      $("#submit").on("click", run_query);
+      $("#queryform").on("submit", run_query);
     </script>
   </body>
 </html>
