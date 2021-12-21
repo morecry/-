@@ -13,4 +13,11 @@ def hello_world():
 @app.route('/query_api/<text>')
 def query_api(text):
     print(text)
-    return json.dumps(api.query(text)[0])
+    results, values = api.query(text)
+    ret = []
+    for r, v in zip(results, values):
+        ret.append({
+            'text': r,
+            'score': v
+        })
+    return json.dumps(ret)

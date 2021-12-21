@@ -175,7 +175,7 @@ class API(object):
             sim = F.cosine_similarity(hidden_state, index)
         values, indices = sim.topk(topk, sorted=True)
         results = [dataset[idx] for idx in indices]
-        return results, values
+        return results, values.tolist()
 
 
 if  __name__ == "__main__":
